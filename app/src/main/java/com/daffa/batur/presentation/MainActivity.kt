@@ -1,4 +1,4 @@
-package com.daffa.batur
+package com.daffa.batur.presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
