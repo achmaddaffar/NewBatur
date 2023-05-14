@@ -20,17 +20,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.daffa.batur.R
-import com.daffa.batur.data.models.User
 import com.daffa.batur.presentation.components.CustomButton
 import com.daffa.batur.presentation.components.CustomTextField
 import com.daffa.batur.presentation.components.SpeechBubble
 import com.daffa.batur.presentation.onboarding.OnBoardingPage
-import com.daffa.batur.presentation.ui.theme.IconSizeLarge
 import com.daffa.batur.presentation.ui.theme.MascotSizeLarge
-import com.daffa.batur.presentation.ui.theme.SpaceExtraLarge
 import com.daffa.batur.presentation.ui.theme.SpaceLarge
 import com.daffa.batur.presentation.ui.theme.SpaceMedium
 import com.daffa.batur.presentation.ui.theme.SpaceSmall
@@ -38,6 +34,7 @@ import com.daffa.batur.presentation.ui.theme.SpaceUltraLarge
 import com.daffa.batur.presentation.util.states.CustomTextFieldState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -46,7 +43,7 @@ fun ThirdOnBoardingScreen(
     pagerState: PagerState,
     page: OnBoardingPage,
     coroutineScope: CoroutineScope,
-    viewModel: ThirdOnBoardingViewModel = hiltViewModel(),
+    viewModel: ThirdOnBoardingViewModel = koinViewModel(),
 ) {
     val username = viewModel.usernameText.value.text
 

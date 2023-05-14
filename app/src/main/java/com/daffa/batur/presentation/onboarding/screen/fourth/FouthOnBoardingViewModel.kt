@@ -7,11 +7,8 @@ import androidx.lifecycle.ViewModel
 import com.daffa.batur.R
 import com.daffa.batur.data.repository.UserRepositoryImpl
 import com.daffa.batur.presentation.util.states.SelectionOption
-import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 
-@HiltViewModel
-class FourthOnBoardingViewModel @Inject constructor(
+class FourthOnBoardingViewModel(
     private val repository: UserRepositoryImpl
 ) : ViewModel() {
 

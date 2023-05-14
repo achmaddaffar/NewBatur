@@ -1,12 +1,10 @@
 package com.daffa.batur.presentation.home
 
 import androidx.lifecycle.ViewModel
-import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
+import com.daffa.batur.data.repository.UserRepositoryImpl
 
-@HiltViewModel
-class HomeViewModel @Inject constructor(
-
+class HomeViewModel(
+    repository: UserRepositoryImpl
 ) : ViewModel() {
 
 

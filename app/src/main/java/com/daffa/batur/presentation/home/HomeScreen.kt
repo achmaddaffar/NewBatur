@@ -16,7 +16,6 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.wear.compose.material.Text
 import com.daffa.batur.R
@@ -26,17 +25,16 @@ import com.daffa.batur.presentation.home.components.FeedbackCard
 import com.daffa.batur.presentation.home.components.QuickActionCard
 import com.daffa.batur.presentation.home.components.StartNewCourseCard
 import com.daffa.batur.presentation.home.components.TopBanner
-import com.daffa.batur.presentation.ui.theme.SpaceExtraLarge
 import com.daffa.batur.presentation.ui.theme.SpaceLarge
 import com.daffa.batur.presentation.ui.theme.SpaceMedium
 import com.daffa.batur.presentation.ui.theme.SpaceSmall
 import com.daffa.batur.presentation.ui.theme.SpaceUltraLarge
 import com.daffa.batur.presentation.util.Screen
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun HomeScreen(
     navController: NavController,
-    viewModel: HomeViewModel = hiltViewModel(),
 ) {
     val screenWidth = LocalConfiguration.current.screenWidthDp.dp
     val bannerHeight = (screenWidth / 1.7f)

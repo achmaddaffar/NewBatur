@@ -4,18 +4,19 @@ import android.content.Context
 import com.daffa.batur.data.UserPreferences
 import com.daffa.batur.data.models.User
 import com.daffa.batur.domain.repository.UserRepository
-import kotlinx.coroutines.flow.Flow
+import com.daffa.batur.util.Constants.dataStore
 
 class UserRepositoryImpl(context: Context) : UserRepository {
-    private val pref = UserPreferences(context)
 
-    override fun readOnBoardingState() = pref.readOnBoardingState()
+    private val preferences = UserPreferences(context)
 
-    override fun readUser() = pref.readUser()
+    override fun readOnBoardingState() = preferences.readOnBoardingState()
 
-    override suspend fun saveOnBoardingState(isCompleted: Boolean) = pref.saveOnBoardingState(isCompleted)
+    override fun readUser() = preferences.readUser()
 
-    override suspend fun saveUser(user: User) = pref.saveUser(user)
+    override suspend fun saveOnBoardingState(isCompleted: Boolean) = preferences.saveOnBoardingState(isCompleted)
 
-    override suspend fun saveUsername(username: String) = pref.saveUsername(username)
+    override suspend fun saveUser(user: User) = preferences.saveUser(user)
+
+    override suspend fun saveUsername(username: String) = preferences.saveUsername(username)
 }

@@ -3,13 +3,11 @@ package com.daffa.batur.presentation.login
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import com.daffa.batur.data.repository.UserRepositoryImpl
 import com.daffa.batur.presentation.util.states.CustomTextFieldState
-import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 
-@HiltViewModel
-class LoginViewModel @Inject constructor(
-
+class LoginViewModel(
+    repository: UserRepositoryImpl
 ) : ViewModel() {
 
     private val _usernameText = mutableStateOf(CustomTextFieldState())

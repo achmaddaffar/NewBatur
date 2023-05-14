@@ -6,12 +6,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.daffa.batur.data.repository.UserRepositoryImpl
 import com.daffa.batur.presentation.util.states.CustomTextFieldState
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-class ThirdOnBoardingViewModel @Inject constructor(
+class ThirdOnBoardingViewModel constructor(
     private val repository: UserRepositoryImpl,
 ) : ViewModel() {
 

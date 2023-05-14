@@ -23,13 +23,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.withStyle
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.daffa.batur.R
 import com.daffa.batur.presentation.components.CustomButton
@@ -42,11 +37,12 @@ import com.daffa.batur.presentation.ui.theme.SpaceMedium
 import com.daffa.batur.presentation.ui.theme.SpaceSmall
 import com.daffa.batur.presentation.util.Screen
 import com.daffa.batur.presentation.util.states.CustomTextFieldState
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun RegisterScreen(
     navController: NavController,
-    viewModel: RegisterViewModel = hiltViewModel(),
+    viewModel: RegisterViewModel = koinViewModel(),
 ) {
     Column(
         modifier = Modifier

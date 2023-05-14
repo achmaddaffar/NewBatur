@@ -28,7 +28,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.times
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.daffa.batur.R
@@ -41,11 +40,10 @@ import com.daffa.batur.presentation.ui.theme.MascotSizeLarge
 import com.daffa.batur.presentation.ui.theme.SpaceLarge
 import com.daffa.batur.presentation.ui.theme.SpaceMedium
 import com.daffa.batur.presentation.ui.theme.SpaceSmall
-import com.daffa.batur.presentation.ui.theme.SpaceUltraLarge
 import com.daffa.batur.presentation.util.Screen
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
 import okhttp3.internal.format
+import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -54,7 +52,7 @@ fun FourthOnBoardingScreen(
     pagerState: PagerState,
     page: OnBoardingPage,
     coroutineScope: CoroutineScope,
-    viewModel: FourthOnBoardingViewModel = hiltViewModel(),
+    viewModel: FourthOnBoardingViewModel = koinViewModel(),
 ) {
     val user = viewModel.user.collectAsStateWithLifecycle(initialValue = User())
     Box(
