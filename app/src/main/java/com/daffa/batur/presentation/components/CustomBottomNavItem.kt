@@ -3,9 +3,12 @@ package com.daffa.batur.presentation.components
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -23,36 +26,28 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.daffa.batur.presentation.ui.theme.IconSizeLarge
+import com.daffa.batur.presentation.ui.theme.IconSizeMedium
+import com.daffa.batur.presentation.ui.theme.IconSizeSmall
 import com.daffa.batur.presentation.ui.theme.Slate400
 import com.daffa.batur.presentation.ui.theme.SpaceSmall
 
 @Composable
-fun RowScope.StandardBottomNavItem(
+fun RowScope.CustomBottomNavItem(
     modifier: Modifier = Modifier,
+    sectionName: String? = null,
     icon: Painter? = null,
     contentDescription: String? = null,
     selected: Boolean = false,
-    alertCount: Int? = null,
     selectedColor: Color = MaterialTheme.colors.primary,
     unselectedColor: Color = Slate400,
     enabled: Boolean = true,
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ) {
-    if (alertCount != null && alertCount < 0)
-        throw IllegalArgumentException("Alert count can't be negative")
-
-    val lineLength = animateFloatAsState(
-        targetValue = if (selected) 1f else 0f,
-        animationSpec = tween(
-            durationMillis = 350
-        )
-    )
-
     BottomNavigationItem(
         selected = selected,
         onClick = { onClick() },
@@ -61,57 +56,31 @@ fun RowScope.StandardBottomNavItem(
         selectedContentColor = selectedColor,
         unselectedContentColor = unselectedColor,
         icon = {
-            Box(
+            Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(Color.White)
-                    .padding(SpaceSmall)
-                    .drawBehind {
-                        if (lineLength.value > 0f)
-                            drawLine(
-                                color = if (selected)
-                                    selectedColor
-                                else
-                                    unselectedColor,
-                                start = Offset(
-                                    x = size.width / 2f - lineLength.value * 15.dp.toPx(),
-                                    y = size.height
-                                ),
-                                end = Offset(
-                                    x = size.width / 2f + lineLength.value * 15.dp.toPx(),
-                                    y = size.height
-                                ),
-                                strokeWidth = 2.dp.toPx(),
-                                cap = StrokeCap.Round
-                            )
-                    }
+                    .background(Color.White),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
             ) {
-                if (icon != null)
-                    Icon(
-                        painter = icon,
-                        contentDescription = contentDescription,
-                        modifier = Modifier
-                            .align(Alignment.Center)
-                    )
-                if (alertCount != null) {
-                    val alertText = if (alertCount > 99)
-                        "99+"
-                    else
-                        alertCount.toString()
-                    Text(
-                        text = alertText,
-                        color = MaterialTheme.colors.onPrimary,
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 10.sp,
-                        textAlign = TextAlign.Center,
-                        modifier = Modifier
-                            .align(Alignment.TopCenter)
-                            .offset(12.dp)
-                            .size(16.dp)
-                            .clip(CircleShape)
-                            .background(MaterialTheme.colors.primary)
-                    )
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                ) {
+                    if (icon != null)
+                        Icon(
+                            painter = icon,
+                            contentDescription = contentDescription,
+                            modifier = Modifier
+                                .align(Alignment.Center)
+                                .size(IconSizeLarge)
+                        )
                 }
+                Text(
+                    text = sectionName.toString(),
+                    style = MaterialTheme.typography.body2,
+                    color = if (selected) selectedColor else unselectedColor
+                )
             }
         }
     )

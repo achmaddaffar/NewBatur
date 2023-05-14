@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "171629354369",
+    "project_id": "batur-15ac8",
+    "storage_bucket": "batur-15ac8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:171629354369:android:c199f69e6a52ae3e399c80",
+        "android_client_info": {
+          "package_name": "com.daffa.batur"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "171629354369-f6k5jq72r8jv7hnlnnoaqqfosdqpohkd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDz9LJhSixDbppMnabY3eFLiDxfaSKRUcU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "171629354369-f6k5jq72r8jv7hnlnnoaqqfosdqpohkd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

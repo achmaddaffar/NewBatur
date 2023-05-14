@@ -4,7 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.BottomAppBar
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.MaterialTheme
@@ -32,17 +31,20 @@ fun CustomScaffold(
         BottomNavItem(
             route = Screen.GameMapScreen.route,
             icon = painterResource(id = R.drawable.map_icon),
-            contentDescription = "Home"
+            contentDescription = "Game Map",
+            sectionName = "Peta"
         ),
         BottomNavItem(
             route = Screen.HomeScreen.route,
             icon = painterResource(id = R.drawable.home_icon),
-            contentDescription = "Activity"
+            contentDescription = "Beranda",
+            sectionName = "Beranda"
         ),
         BottomNavItem(
             route = Screen.ProfileScreen.route,
             icon = painterResource(id = R.drawable.profile_icon),
-            contentDescription = "Profile"
+            contentDescription = "Profil",
+            sectionName = "Profil"
         )
     ),
     onFabClick: () -> Unit = {},
@@ -63,12 +65,12 @@ fun CustomScaffold(
                         modifier = Modifier.fillMaxWidth()
                     ) {
                         bottomNavItems.forEachIndexed { index, bottomNavItem ->
-                            StandardBottomNavItem(
+                            CustomBottomNavItem(
                                 icon = bottomNavItem.icon,
                                 contentDescription = bottomNavItem.contentDescription,
                                 selected = bottomNavItem.route == navController.currentDestination?.route,
-                                alertCount = bottomNavItem.alertCount,
-                                enabled = bottomNavItem.icon != null
+                                enabled = bottomNavItem.icon != null,
+                                sectionName = bottomNavItem.sectionName
                             ) {
                                 if (navController.currentDestination?.route != bottomNavItem.route) {
                                     navController.popBackStack()
