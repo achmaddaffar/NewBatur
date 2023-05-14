@@ -1,3 +1,29 @@
 <resources>
-    <string name="app_name">Batur</string>
+    <string name="app_name">batur</string>
+    <string name="batur_logo">Batur logo</string>
+    <string name="budaya_tradisi_dan_kultur">Budaya, Tradisi, dan Kultur</string>
+    <string name="indonesia_yang_lebih_menyenangkan">Indonesia yang lebih menyenangkan</string>
+    <string name="mari_kita_mulai">Mari kita mulai!</string>
+    <string name="saya_sudah_memiliki_akun">Saya sudah memiliki akun</string>
+    <string name="back_icon">Back icon</string>
+    <string name="batur_mascot">Batur\'s mascot</string>
+    <string name="password_visible_content_description">Hide password</string>
+    <string name="password_hidden_content_description">Show password</string>
+    <string name="username">Username</string>
+    <string name="seluruh_indonesia">Seluruh Indonesia</string>
+    <string name="email_hint">yourmail@mail.com</string>
+    <string name="password_hint">Minimal 8 karakter</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="aksi_cepat">Aksi Cepat</string>
+    <string name="kursus">Kursus</string>
+    <string name="mulai_kursus_baru">Mulai Kursus Baru!</string>
+    <string name="pilih_kursus">Pilih Kursus</string>
+    <string name="start_new_course">Start new course</string>
+    <string name="berikan_ulasan">Berikan Ulasan</string>
+    <string name="feedback_image">Feedback Image</string>
+    <string name="lanjutkan_kursus">Lanjutkan Kursus</string>
+    <string name="lanjutkan">Lanjutkan</string>
+    <string name="register_speech_chat">Selamat datang di aplikasi BATUR, agar bisa menggunakan semua fitur di aplikasi BATUR, kamu harus mendaftar dengan mengisi email dan password kamu</string>
+    <string name="ketik_ulang_password">Ketik Ulang Password</string>
 </resources>
