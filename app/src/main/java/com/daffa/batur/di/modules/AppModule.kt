@@ -24,10 +24,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
+import timber.log.Timber
 
 val appModule = module {
     single { FirebaseAuth.getInstance() }
     single { FirebaseFirestore.getInstance() }
+    single { Timber }
     single { provideUserPreferences(get()) }
     single { provideUserRepository(get()) }
     single { FirebaseRepositoryImpl(get(), get()) }

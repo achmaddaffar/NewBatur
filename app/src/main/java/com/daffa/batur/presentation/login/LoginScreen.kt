@@ -14,10 +14,13 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -29,18 +32,23 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.window.Dialog
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.daffa.batur.R
+import com.daffa.batur.data.models.User
 import com.daffa.batur.presentation.components.CustomButton
 import com.daffa.batur.presentation.components.CustomTextField
 import com.daffa.batur.presentation.components.SpeechBubble
 import com.daffa.batur.presentation.ui.theme.IconSizeLarge
+import com.daffa.batur.presentation.ui.theme.IconSizeUltra
 import com.daffa.batur.presentation.ui.theme.MascotSizeLarge
 import com.daffa.batur.presentation.ui.theme.SpaceLarge
 import com.daffa.batur.presentation.ui.theme.SpaceMedium
 import com.daffa.batur.presentation.ui.theme.SpaceSmall
 import com.daffa.batur.presentation.util.Screen
 import com.daffa.batur.presentation.util.states.CustomTextFieldState
+import com.daffa.batur.util.Resources
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -48,6 +56,7 @@ fun LoginScreen(
     navController: NavController,
     viewModel: LoginViewModel = koinViewModel(),
 ) {
+    val uiState by viewModel.loginState.collectAsStateWithLifecycle()
 
     Column(
         modifier = Modifier
@@ -188,10 +197,10 @@ fun LoginScreen(
                         bottom = SpaceLarge * 2
                     ),
                 onClick = {
-                    navController.popBackStack()
-                    navController.navigate(Screen.HomeScreen.route) {
-                        popUpTo(0)
-                    }
+                    viewModel.login(
+                        viewModel.usernameText.value.text,
+                        viewModel.passwordText.value.text
+                    )
                 },
                 enabled = viewModel.isFieldFilled()
             ) {
@@ -203,5 +212,40 @@ fun LoginScreen(
                 )
             }
         }
+    }
+
+    when (uiState) {
+        is Resources.Loading -> {
+            Dialog(
+                onDismissRequest = {}
+            ) {
+                CircularProgressIndicator(
+                    modifier = Modifier.size(IconSizeUltra)
+                )
+            }
+        }
+
+        is Resources.Error -> {
+            LaunchedEffect(Unit) {
+                viewModel.setUsernameText(
+                    CustomTextFieldState(
+                        text = viewModel.usernameText.value.text,
+                        error = uiState.message.toString()
+                    )
+                )
+            }
+        }
+
+        is Resources.Success -> {
+            LaunchedEffect(Unit) {
+                viewModel.saveOnBoardingState(true)
+                viewModel.insertUser()
+                navController.navigate(Screen.HomeScreen.route) {
+                    popUpTo(0)
+                }
+            }
+        }
+
+        is Resources.Nothing -> {}
     }
 }

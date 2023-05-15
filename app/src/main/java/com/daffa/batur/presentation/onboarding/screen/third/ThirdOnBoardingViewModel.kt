@@ -19,7 +19,7 @@ class ThirdOnBoardingViewModel constructor(
         _usernameText.value = state
     }
 
-    fun saveUser() = viewModelScope.launch {
+    fun saveUsername() = viewModelScope.launch {
         repository.saveUsername(
             usernameText.value.text
         )

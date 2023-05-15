@@ -112,7 +112,7 @@ fun ThirdOnBoardingScreen(
                     .padding(SpaceLarge),
                 onClick = {
                     coroutineScope.launch {
-                        viewModel.saveUser()
+                        viewModel.saveUsername()
                         pagerState.animateScrollToPage(pagerState.currentPage + 1)
                     }
                 },

@@ -14,4 +14,9 @@ interface UserRepository {
     suspend fun saveUser(user: User)
 
     suspend fun saveUsername(username: String)
+
+    suspend fun saveSuku(suku: String)
+
+    suspend fun logout()
+
 }

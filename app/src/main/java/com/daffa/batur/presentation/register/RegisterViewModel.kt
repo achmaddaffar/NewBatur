@@ -103,14 +103,14 @@ class RegisterViewModel(
     }
 
     fun register() {
-        viewModelScope.launch {
-            if (isPasswordValid())
+        if (isPasswordValid())
+            viewModelScope.launch {
                 firebaseRepository.register(
                     usernameText.value.text,
                     passwordText.value.text
                 ).collect {
                     _registerState.value = it
                 }
-        }
+            }
     }
 }

@@ -230,17 +230,19 @@ fun RegisterScreen(
         }
 
         is Resources.Error -> {
-            viewModel.setUsernameText(
-                CustomTextFieldState(
-                    text = viewModel.usernameText.value.text,
-                    error = uiState.message.toString()
+            LaunchedEffect(Unit) {
+                viewModel.setUsernameText(
+                    CustomTextFieldState(
+                        text = viewModel.usernameText.value.text,
+                        error = uiState.message.toString()
+                    )
                 )
-            )
+            }
         }
 
         is Resources.Success -> {
             LaunchedEffect(Unit) {
-                navController.navigate(Screen.HomeScreen.route) {
+                navController.navigate(Screen.LoginScreen.route) {
                     popUpTo(0)
                 }
             }

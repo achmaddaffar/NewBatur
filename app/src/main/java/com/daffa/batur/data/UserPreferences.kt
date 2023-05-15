@@ -18,7 +18,7 @@ class UserPreferences(context: Context) {
     private object PreferencesKey {
         val onBoardingKey = booleanPreferencesKey(name = "on_boarding_completed")
         val username = stringPreferencesKey(name = "username")
-        val token = stringPreferencesKey(name = "token")
+        val suku = stringPreferencesKey(name = "suku")
     }
 
     private val dataStore = context.dataStore
@@ -26,19 +26,6 @@ class UserPreferences(context: Context) {
     suspend fun saveOnBoardingState(isCompleted: Boolean) {
         dataStore.edit { preferences ->
             preferences[PreferencesKey.onBoardingKey] = isCompleted
-        }
-    }
-
-    suspend fun saveUser(user: User) {
-        dataStore.edit { preferences ->
-            preferences[PreferencesKey.username] = user.username
-            preferences[PreferencesKey.token] = user.token
-        }
-    }
-
-    suspend fun saveUsername(username: String) {
-        dataStore.edit { preferences ->
-            preferences[PreferencesKey.username] = username
         }
     }
 
@@ -54,6 +41,31 @@ class UserPreferences(context: Context) {
         }
     }
 
+    suspend fun saveUser(user: User) {
+        dataStore.edit { preferences ->
+            preferences[PreferencesKey.username] = user.username
+        }
+    }
+
+    suspend fun saveUsername(username: String) {
+        dataStore.edit { preferences ->
+            preferences[PreferencesKey.username] = username
+        }
+    }
+
+    suspend fun logout() {
+        dataStore.edit { preferences ->
+            preferences[PreferencesKey.username] = String.Empty
+            preferences[PreferencesKey.onBoardingKey] = false
+        }
+    }
+
+    suspend fun saveSuku(suku: String) {
+        dataStore.edit { preferences ->
+            preferences[PreferencesKey.suku] = suku
+        }
+    }
+
     fun readUser(): Flow<User> {
         return dataStore.data.catch { exception ->
             if (exception is IOException)
@@ -63,7 +75,7 @@ class UserPreferences(context: Context) {
         }.map { preferences ->
             val user = User(
                 username = preferences[PreferencesKey.username] ?: String.Empty,
-                token = preferences[PreferencesKey.token] ?: String.Empty
+                suku = preferences[PreferencesKey.suku] ?: String.Empty
             )
             user
         }

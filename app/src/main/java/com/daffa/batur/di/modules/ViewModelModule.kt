@@ -14,6 +14,6 @@ val viewModelModule = module {
     viewModel { RegisterViewModel(get(), get()) }
     viewModel { ThirdOnBoardingViewModel(get()) }
     viewModel { FourthOnBoardingViewModel(get()) }
-    viewModel { LoginViewModel(get()) }
+    viewModel { LoginViewModel(get(), get()) }
     viewModel { HomeViewModel(get()) }
 }

@@ -4,9 +4,10 @@ import android.content.Context
 import com.daffa.batur.data.UserPreferences
 import com.daffa.batur.data.models.User
 import com.daffa.batur.domain.repository.UserRepository
-import com.daffa.batur.util.Constants.dataStore
 
-class UserRepositoryImpl(context: Context) : UserRepository {
+class UserRepositoryImpl(
+    context: Context
+) : UserRepository {
 
     private val preferences = UserPreferences(context)
 
@@ -19,4 +20,8 @@ class UserRepositoryImpl(context: Context) : UserRepository {
     override suspend fun saveUser(user: User) = preferences.saveUser(user)
 
     override suspend fun saveUsername(username: String) = preferences.saveUsername(username)
+
+    override suspend fun logout() = preferences.logout()
+
+    override suspend fun saveSuku(suku: String) = preferences.saveSuku(suku)
 }

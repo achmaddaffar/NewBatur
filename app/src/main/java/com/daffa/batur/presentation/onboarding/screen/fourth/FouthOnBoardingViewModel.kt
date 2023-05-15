@@ -4,9 +4,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.daffa.batur.R
 import com.daffa.batur.data.repository.UserRepositoryImpl
 import com.daffa.batur.presentation.util.states.SelectionOption
+import com.daffa.batur.util.Constants.Empty
+import kotlinx.coroutines.launch
 
 class FourthOnBoardingViewModel(
     private val repository: UserRepositoryImpl
@@ -29,6 +32,8 @@ class FourthOnBoardingViewModel(
         SelectionOption("Suku Tengger", false),
     )
 
+    private var selectedSuku = String.Empty
+
     val options: List<SelectionOption>
         get() = _options
 
@@ -45,7 +50,16 @@ class FourthOnBoardingViewModel(
         _options.forEach { it.selected = false }
         _options.find { it.option == selectionOption.option }?.selected = true
         optionsSelected = true
+        selectedSuku = selectionOption.option
     }
 
     fun checkOptionsSelected(): Boolean = countryOptionsSelected && optionsSelected
+
+    fun saveOnBoardingState(isCompleted: Boolean) = viewModelScope.launch {
+        repository.saveOnBoardingState(isCompleted)
+    }
+
+    fun saveSuku() = viewModelScope.launch {
+        repository.saveSuku(selectedSuku)
+    }
 }
