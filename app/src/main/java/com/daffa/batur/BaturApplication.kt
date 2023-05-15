@@ -1,7 +1,8 @@
 package com.daffa.batur
 
 import android.app.Application
-import com.daffa.batur.di.appModule
+import com.daffa.batur.di.modules.appModule
+import com.daffa.batur.di.modules.viewModelModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidFileProperties
 import org.koin.android.ext.koin.androidLogger
@@ -15,7 +16,10 @@ class BaturApplication : Application() {
             androidLogger(Level.DEBUG)
             androidContext(this@BaturApplication)
             androidFileProperties()
-            modules(appModule)
+            modules(
+                appModule,
+                viewModelModule
+            )
         }
     }
 }

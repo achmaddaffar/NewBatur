@@ -14,10 +14,15 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -25,18 +30,22 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.window.Dialog
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.daffa.batur.R
 import com.daffa.batur.presentation.components.CustomButton
 import com.daffa.batur.presentation.components.CustomTextField
 import com.daffa.batur.presentation.components.SpeechBubble
 import com.daffa.batur.presentation.ui.theme.IconSizeLarge
+import com.daffa.batur.presentation.ui.theme.IconSizeUltra
 import com.daffa.batur.presentation.ui.theme.MascotSizeLarge
 import com.daffa.batur.presentation.ui.theme.SpaceLarge
 import com.daffa.batur.presentation.ui.theme.SpaceMedium
 import com.daffa.batur.presentation.ui.theme.SpaceSmall
 import com.daffa.batur.presentation.util.Screen
 import com.daffa.batur.presentation.util.states.CustomTextFieldState
+import com.daffa.batur.util.Resources
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -44,6 +53,8 @@ fun RegisterScreen(
     navController: NavController,
     viewModel: RegisterViewModel = koinViewModel(),
 ) {
+    val uiState by viewModel.registerState.collectAsStateWithLifecycle()
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -77,6 +88,7 @@ fun RegisterScreen(
                 .padding(
                     horizontal = SpaceLarge
                 )
+                .verticalScroll(rememberScrollState())
         ) {
             Image(
                 painter = painterResource(id = R.drawable.batur_mascot_default),
@@ -193,12 +205,7 @@ fun RegisterScreen(
                         end = SpaceLarge,
                         bottom = SpaceLarge * 2
                     ),
-                onClick = {
-                    navController.popBackStack()
-                    navController.navigate(Screen.HomeScreen.route) {
-                        popUpTo(0)
-                    }
-                },
+                onClick = viewModel::register,
                 enabled = viewModel.isFieldFilled()
             ) {
                 Text(
@@ -209,5 +216,36 @@ fun RegisterScreen(
                 )
             }
         }
+    }
+
+    when (uiState) {
+        is Resources.Loading -> {
+            Dialog(
+                onDismissRequest = {}
+            ) {
+                CircularProgressIndicator(
+                    modifier = Modifier.size(IconSizeUltra)
+                )
+            }
+        }
+
+        is Resources.Error -> {
+            viewModel.setUsernameText(
+                CustomTextFieldState(
+                    text = viewModel.usernameText.value.text,
+                    error = uiState.message.toString()
+                )
+            )
+        }
+
+        is Resources.Success -> {
+            LaunchedEffect(Unit) {
+                navController.navigate(Screen.HomeScreen.route) {
+                    popUpTo(0)
+                }
+            }
+        }
+
+        is Resources.Nothing -> {}
     }
 }

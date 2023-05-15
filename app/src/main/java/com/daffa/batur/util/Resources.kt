@@ -9,5 +9,7 @@ sealed class Resources<T> (
 
     class Loading<T>(data: T? = null) : Resources<T>(data)
 
-    class Error<T>(message: String, data: T? = null) : Resources<T>(data, message)
+    class Error<T>(message: String? = null, data: T? = null) : Resources<T>(data, message)
+
+    class Nothing<T>(): Resources<T>()
 }

@@ -26,4 +26,6 @@
     <string name="lanjutkan">Lanjutkan</string>
     <string name="register_speech_chat">Selamat datang di aplikasi BATUR, agar bisa menggunakan semua fitur di aplikasi BATUR, kamu harus mendaftar dengan mengisi email dan password kamu</string>
     <string name="ketik_ulang_password">Ketik Ulang Password</string>
+    <string name="coin_icon">Coin Icon</string>
+    <string name="tambah_coin">Tambah coin</string>
 </resources>

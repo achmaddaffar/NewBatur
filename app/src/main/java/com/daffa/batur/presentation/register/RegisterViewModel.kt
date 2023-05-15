@@ -3,12 +3,24 @@ package com.daffa.batur.presentation.register
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.daffa.batur.data.repository.FirebaseRepositoryImpl
 import com.daffa.batur.data.repository.UserRepositoryImpl
 import com.daffa.batur.presentation.util.states.CustomTextFieldState
+import com.daffa.batur.util.Resources
+import com.google.firebase.auth.FirebaseUser
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 class RegisterViewModel(
-    repository: UserRepositoryImpl
+    userRepository: UserRepositoryImpl,
+    private val firebaseRepository: FirebaseRepositoryImpl,
 ) : ViewModel() {
+
 
     private val _usernameText = mutableStateOf(CustomTextFieldState())
     val usernameText: State<CustomTextFieldState> = _usernameText
@@ -24,6 +36,9 @@ class RegisterViewModel(
 
     private val _showRepeatPassword = mutableStateOf(false)
     val showRepeatPassword: State<Boolean> = _showRepeatPassword
+
+    private val _registerState = MutableStateFlow<Resources<FirebaseUser?>>(Resources.Nothing())
+    val registerState = _registerState.asStateFlow()
 
     fun setUsernameText(state: CustomTextFieldState) {
         _usernameText.value = state
@@ -46,7 +61,56 @@ class RegisterViewModel(
     }
 
     fun isFieldFilled(): Boolean {
-        return usernameText.value.text.isNotEmpty() && passwordText.value.text.isNotEmpty() &&
+        return usernameText.value.text.isNotEmpty() &&
+                passwordText.value.text.isNotEmpty() &&
                 repeatPasswordText.value.text.isNotEmpty()
+    }
+
+    private fun isPasswordValid(): Boolean {
+        val isTheSame = passwordText.value.text == repeatPasswordText.value.text
+        val isMoreThan8Chars = passwordText.value.text.length >= 8
+        if (!isTheSame) {
+            setPasswordText(
+                CustomTextFieldState(
+                    text = passwordText.value.text,
+                    error = "Kedua password harus sama"
+                )
+            )
+            setRepeatPasswordText(
+                CustomTextFieldState(
+                    text = repeatPasswordText.value.text,
+                    error = "Kedua password harus sama"
+                )
+            )
+            return false
+        }
+        if (!isMoreThan8Chars) {
+            setPasswordText(
+                CustomTextFieldState(
+                    text = passwordText.value.text,
+                    error = "Password harus lebih dari 8 karakter"
+                )
+            )
+            setRepeatPasswordText(
+                CustomTextFieldState(
+                    text = repeatPasswordText.value.text,
+                    error = "Password harus lebih dari 8 karakter"
+                )
+            )
+            return false
+        }
+        return true
+    }
+
+    fun register() {
+        viewModelScope.launch {
+            if (isPasswordValid())
+                firebaseRepository.register(
+                    usernameText.value.text,
+                    passwordText.value.text
+                ).collect {
+                    _registerState.value = it
+                }
+        }
     }
 }
