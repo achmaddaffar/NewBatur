@@ -2,15 +2,12 @@ package com.daffa.batur.presentation.game_map.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material.Card
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
@@ -19,12 +16,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.Text
 import com.daffa.batur.R
 import com.daffa.batur.data.models.User
-import com.daffa.batur.presentation.ui.theme.IconSizeExtra
+import com.daffa.batur.presentation.components.CoinSection
+import com.daffa.batur.presentation.components.UserLevelSection
 import com.daffa.batur.presentation.ui.theme.Primary600
 import com.daffa.batur.presentation.ui.theme.Primary700
 import com.daffa.batur.presentation.ui.theme.SpaceExtraSmall
@@ -99,9 +96,12 @@ fun MapTopBanner(
                     .background(Primary700)
                     .padding(SpaceExtraSmall)
                     .background(Primary600),
-                shape = MaterialTheme.shapes.medium
+                shape = MaterialTheme.shapes.small
             ) {
-                IconButton(onClick = {}) {
+                IconButton(
+                    onClick = {},
+                    Modifier.background(Primary600)
+                ) {
                     Icon(
                         painter = painterResource(id = R.drawable.hamburger_list_icon),
                         contentDescription = "Daftar Level",

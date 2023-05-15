@@ -1,4 +1,4 @@
-package com.daffa.batur.presentation.game_map.components
+package com.daffa.batur.presentation.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement

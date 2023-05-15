@@ -1,4 +1,4 @@
-package com.daffa.batur.presentation.game_map.components
+package com.daffa.batur.presentation.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -21,7 +21,6 @@ import com.daffa.batur.data.models.User
 import com.daffa.batur.presentation.ui.theme.Secondary600
 import com.daffa.batur.presentation.ui.theme.Slate900
 import com.daffa.batur.presentation.ui.theme.SpaceExtraSmall
-import com.daffa.batur.presentation.ui.theme.SpaceMedium
 import com.daffa.batur.presentation.ui.theme.SpaceSmall
 
 @Composable

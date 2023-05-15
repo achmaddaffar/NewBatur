@@ -12,14 +12,19 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.daffa.batur.presentation.components.CustomScaffold
 import com.daffa.batur.presentation.ui.theme.BaturTheme
+import com.daffa.batur.presentation.ui.theme.Primary600
 import com.daffa.batur.presentation.util.Navigation
 import com.daffa.batur.presentation.util.Screen
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             BaturTheme {
+                val systemUiController = rememberSystemUiController()
+                systemUiController.setStatusBarColor(Primary600)
+
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
