@@ -29,7 +29,8 @@ import com.daffa.batur.presentation.ui.theme.SpaceSmall
 fun QuickActionCard(
     modifier: Modifier,
     shape: Shape = MaterialTheme.shapes.medium,
-    course: Course
+    course: Course,
+    onClick: () -> Unit
 ) {
     Card(
         modifier = modifier,
@@ -63,7 +64,7 @@ fun QuickActionCard(
                 )
             }
             Button(
-                onClick = {}
+                onClick = onClick
             ) {
                 Text(
                     text = "Mulai kursus ini!",

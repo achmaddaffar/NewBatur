@@ -35,26 +35,30 @@ fun GameMap(
             MapNodeState.Locked,
             MapNodeState.Locked,
             MapNodeState.Locked,
-            MapNodeState.Locked
+            MapNodeState.Locked,
+            MapNodeState.Locked,
+            MapNodeState.Locked,
+            MapNodeState.Locked,
+            MapNodeState.Locked,
         )
         item {
             Spacer(modifier = Modifier.height(60.dp))
         }
         var turningPoint = -1
-        items(10) { index ->
+        items(nodes.size) { index ->
             Row(
                 Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.Center
             ) {
                 var offsetSize = 0.dp
                 when (index % 4) {
-                    0 -> {
-                        turningPoint *= -1
-                        offsetSize = 20.dp
-                    }
+                    0 -> offsetSize = 20.dp
                     1 -> offsetSize = 40.dp
                     2 -> offsetSize = 60.dp
-                    3 -> offsetSize = 80.dp
+                    3 -> {
+                        offsetSize = 80.dp
+                        turningPoint *= -1
+                    }
                 }
                 Image(
                     painter = if (nodes[index] == MapNodeState.Completed)
@@ -67,7 +71,7 @@ fun GameMap(
                     contentDescription = "Map Node",
                     modifier = Modifier
                         .offset(x = offsetSize * turningPoint)
-                        .clickable {  }
+                        .clickable { }
                 )
             }
         }

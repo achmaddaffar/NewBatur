@@ -38,16 +38,14 @@ fun CustomButton(
         modifier = modifier
     ) {
         Box(
-            modifier = Modifier
-                .fillMaxWidth()
+            modifier = modifier
                 .clip(shape)
                 .height(53.dp)
                 .background(if (enabled) shadowColor else DisabledShadowColor)
         )
         Button(
             onClick = onClick,
-            modifier = Modifier
-                .fillMaxWidth()
+            modifier = modifier
                 .pressClickEffect(),
             colors = ButtonDefaults.buttonColors(
                 backgroundColor = buttonColor,

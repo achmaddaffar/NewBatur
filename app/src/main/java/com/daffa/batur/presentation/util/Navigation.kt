@@ -11,6 +11,7 @@ import com.daffa.batur.presentation.login.LoginScreen
 import com.daffa.batur.presentation.game_map.GameMapScreen
 import com.daffa.batur.presentation.onboarding.OnBoardingScreen
 import com.daffa.batur.presentation.profile.ProfileScreen
+import com.daffa.batur.presentation.quiz.QuizScreen
 import com.daffa.batur.presentation.register.RegisterScreen
 import com.daffa.batur.presentation.splash.SplashScreen
 
@@ -20,7 +21,7 @@ fun Navigation(
 ) {
     NavHost(
         navController = navController,
-        startDestination = Screen.GameMapScreen.route,
+        startDestination = Screen.HomeScreen.route,
         modifier = Modifier.fillMaxSize()
     ) {
         composable(Screen.SplashScreen.route) {
@@ -43,6 +44,9 @@ fun Navigation(
         }
         composable(Screen.GameMapScreen.route) {
             GameMapScreen(navController = navController)
+        }
+        composable(Screen.QuizScreen.route) {
+            QuizScreen(navController = navController)
         }
     }
 }

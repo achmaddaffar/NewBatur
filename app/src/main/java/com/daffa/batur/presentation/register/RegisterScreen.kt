@@ -40,6 +40,7 @@ import com.daffa.batur.presentation.components.SpeechBubble
 import com.daffa.batur.presentation.ui.theme.IconSizeLarge
 import com.daffa.batur.presentation.ui.theme.IconSizeUltra
 import com.daffa.batur.presentation.ui.theme.MascotSizeLarge
+import com.daffa.batur.presentation.ui.theme.SpaceExtraLarge
 import com.daffa.batur.presentation.ui.theme.SpaceLarge
 import com.daffa.batur.presentation.ui.theme.SpaceMedium
 import com.daffa.batur.presentation.ui.theme.SpaceSmall
@@ -203,7 +204,7 @@ fun RegisterScreen(
                     .padding(
                         start = SpaceLarge,
                         end = SpaceLarge,
-                        bottom = SpaceLarge * 2
+                        bottom = SpaceExtraLarge
                     ),
                 onClick = viewModel::register,
                 enabled = viewModel.isFieldFilled()

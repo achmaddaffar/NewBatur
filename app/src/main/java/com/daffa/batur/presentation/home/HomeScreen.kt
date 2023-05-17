@@ -65,7 +65,9 @@ fun HomeScreen(
                         "Unit 1 - Pengenalan",
                         "Pelajaran 1 - Apa itu Sunda?"
                     )
-                )
+                ) {
+                    navController.navigate(Screen.QuizScreen.route)
+                }
                 Spacer(modifier = Modifier.height(SpaceMedium))
             }
             item {
