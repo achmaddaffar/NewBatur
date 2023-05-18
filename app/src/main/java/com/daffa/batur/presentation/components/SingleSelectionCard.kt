@@ -1,6 +1,5 @@
 package com.daffa.batur.presentation.components
 
-import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -12,7 +11,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.RadioButton
 import androidx.compose.material.RadioButtonDefaults
@@ -28,7 +26,6 @@ import com.daffa.batur.presentation.ui.theme.IconSizeMedium
 import com.daffa.batur.presentation.ui.theme.Primary600
 import com.daffa.batur.presentation.ui.theme.Slate100
 import com.daffa.batur.presentation.ui.theme.SpaceMedium
-import com.daffa.batur.presentation.ui.theme.SpaceSmall
 import com.daffa.batur.presentation.util.states.SelectionOption
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -38,7 +35,7 @@ fun SingleSelectionCard(
     selectionOption: SelectionOption,
     cardColor: Color = Color.White,
     leadingIconSize: Dp = IconSizeMedium,
-    onOptionClicked: (SelectionOption) -> Unit
+    onOptionClicked: (SelectionOption) -> Unit,
 ) {
     Card(
         modifier = modifier,

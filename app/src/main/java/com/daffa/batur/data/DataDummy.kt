@@ -2,6 +2,7 @@ package com.daffa.batur.data
 
 import com.daffa.batur.R
 import com.daffa.batur.data.models.Quiz
+import com.daffa.batur.presentation.util.states.SelectionOption
 
 object DataDummy {
 
@@ -9,11 +10,11 @@ object DataDummy {
         Quiz(
             question = "Manakah di bawah ini yang termasuk tarian daerah Sunda?",
             options = listOf(
-                "Wayang",
-                "Piring",
-                "Kecak",
-                "Saman",
-                "Topeng"
+                SelectionOption("Wayang", false),
+                SelectionOption("Piring", false),
+                SelectionOption("Kecak", false),
+                SelectionOption("Saman", false),
+                SelectionOption("Topeng", false),
             ),
             answer = listOf(
                 "Wayang"
@@ -22,11 +23,11 @@ object DataDummy {
         Quiz(
             question = "Tarian Wayang berasal dari",
             options = listOf(
-                "Cirebon",
-                "Bandung",
-                "Bali",
-                "Garut",
-                "Subang"
+                SelectionOption("Cirebon", false),
+                SelectionOption("Bandung", false),
+                SelectionOption("Bali", false),
+                SelectionOption("Garut", false),
+                SelectionOption("Subang", false)
             ),
             answer = listOf(
                 "Cirebon"

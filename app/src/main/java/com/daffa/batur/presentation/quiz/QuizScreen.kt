@@ -20,8 +20,6 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -34,11 +32,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.navigation.NavController
 import androidx.wear.compose.material.Text
-import com.daffa.batur.R
-import com.daffa.batur.data.DataDummy
 import com.daffa.batur.data.models.Course
-import com.daffa.batur.data.models.Quiz
 import com.daffa.batur.presentation.components.CustomButton
+import com.daffa.batur.presentation.quiz.components.QuizOptionButton
 import com.daffa.batur.presentation.quiz.components.QuizTopBanner
 import com.daffa.batur.presentation.ui.theme.Red
 import com.daffa.batur.presentation.ui.theme.RedDark
@@ -60,7 +56,7 @@ fun QuizScreen(
     viewModel: QuizViewModel = koinViewModel(),
 ) {
     val coroutineScope = rememberCoroutineScope()
-    val quiz = viewModel.getQuiz()
+    val quiz = viewModel.quiz
     val health = viewModel.health
 
     val course = Course(
@@ -87,9 +83,10 @@ fun QuizScreen(
             HorizontalPager(
                 state = pagerState,
                 userScrollEnabled = false,
-                pageCount = 1
+                pageCount = quiz.size
             ) { page ->
                 val currentQuiz = quiz[pagerState.currentPage]
+                viewModel.setCurrentQuiz(currentQuiz)
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
@@ -126,13 +123,15 @@ fun QuizScreen(
                         maxItemsInEachRow = 3
                     ) {
                         for (option in currentQuiz.options) {
-                            CustomButton(
+                            QuizOptionButton(
                                 buttonColor = Slate25,
                                 shadowColor = Slate200,
-                                onClick = {}
+                                selectionOption = option,
+                                onOptionClick = viewModel::selectionOptionSelected,
+                                selected = option.selected
                             ) {
                                 Text(
-                                    text = option,
+                                    text = option.option,
                                     style = MaterialTheme.typography.body2.copy(
                                         color = Slate600
                                     )
@@ -146,9 +145,8 @@ fun QuizScreen(
                             .fillMaxWidth()
                             .align(Alignment.BottomCenter),
                         onClick = {
-                            // GIMANA CARANYA DAPETIN ANSWERNYA????
                             Timber.e("QUIZ CEK JAWABAN")
-                            val result = viewModel.checkAnswer(page, "Wayang")
+                            val result = viewModel.checkAnswer(page, viewModel.selectedQuizOption)
                             if (result) {
                                 Timber.e("QUIZ CEK JAWABAN BENAR")
                                 if (page < quiz.size - 1) {

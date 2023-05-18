@@ -25,6 +25,7 @@ import com.daffa.batur.presentation.ui.theme.Primary600
 import com.daffa.batur.presentation.ui.theme.Slate200
 import com.daffa.batur.presentation.ui.theme.Slate300
 import com.daffa.batur.presentation.ui.theme.Slate900
+import com.daffa.batur.presentation.ui.theme.SpaceExtraSmall
 import com.daffa.batur.presentation.ui.theme.SpaceSmall
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -67,7 +68,7 @@ fun QuizTopBanner(
                 LinearProgressIndicator(
                     color = Primary600,
                     backgroundColor = Slate200,
-                    progress = (pagerState.currentPage / pageSize).toFloat(),
+                    progress = pagerState.currentPage.toFloat() / pageSize.toFloat(),
                     strokeCap = StrokeCap.Round
                 )
             }

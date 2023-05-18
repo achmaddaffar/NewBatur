@@ -7,7 +7,7 @@ import androidx.compose.runtime.setValue
 
 class SelectionOption(
     val option: String,
-    initialSelectedValue: Boolean,
+    initialSelectedValue: Boolean = false,
     @DrawableRes
     val leadingIcon: Int? = null
 ) {

@@ -15,6 +15,7 @@ val Secondary100 = Color(0xFFFFFDED)
 val Secondary200 = Color(0xFFFFFBDC)
 val Secondary500 = Color(0xFFFFED71)
 val Secondary600 = Color(0xFFFFE94E)
+val Secondary700 = Color(0xFFCCBA3E)
 
 val Slate25 = Color(0xFFF9FAFB)
 val Slate50 = Color(0xFFF0F3F9)
