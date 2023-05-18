@@ -8,6 +8,7 @@ import org.koin.android.ext.koin.androidFileProperties
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 import org.koin.core.logger.Level
+import timber.log.Timber
 
 class BaturApplication : Application() {
     override fun onCreate() {
@@ -21,5 +22,6 @@ class BaturApplication : Application() {
                 viewModelModule
             )
         }
+        Timber.plant(Timber.DebugTree())
     }
 }

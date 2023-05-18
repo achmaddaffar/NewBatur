@@ -1,5 +1,6 @@
 package com.daffa.batur.presentation
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -11,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.daffa.batur.presentation.components.CustomScaffold
+import com.daffa.batur.presentation.components.LockScreenOrientation
 import com.daffa.batur.presentation.ui.theme.BaturTheme
 import com.daffa.batur.presentation.ui.theme.Primary600
 import com.daffa.batur.presentation.util.Navigation
@@ -25,6 +27,7 @@ class MainActivity : ComponentActivity() {
                 val systemUiController = rememberSystemUiController()
                 systemUiController.setStatusBarColor(Primary600)
 
+                LockScreenOrientation(orientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background

@@ -23,7 +23,7 @@ fun HealthSection(
         modifier = modifier,
         horizontalArrangement = Arrangement.End
     ) {
-        items(3) {
+        items(currentHealth) {
             Icon(
                 painter = painterResource(id = R.drawable.health_icon),
                 contentDescription = "Nyawa",

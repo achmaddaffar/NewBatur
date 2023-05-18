@@ -1,16 +1,20 @@
 package com.daffa.batur.presentation.quiz.components
 
-import androidx.compose.foundation.background
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.pager.PagerState
 import androidx.compose.material.IconButton
+import androidx.compose.material.LinearProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavController
 import androidx.wear.compose.material.Icon
@@ -21,17 +25,17 @@ import com.daffa.batur.presentation.ui.theme.Primary600
 import com.daffa.batur.presentation.ui.theme.Slate200
 import com.daffa.batur.presentation.ui.theme.Slate300
 import com.daffa.batur.presentation.ui.theme.Slate900
-import com.google.accompanist.pager.ExperimentalPagerApi
-import com.google.accompanist.pager.HorizontalPagerIndicator
-import com.google.accompanist.pager.PagerState
+import com.daffa.batur.presentation.ui.theme.SpaceSmall
 
-@OptIn(ExperimentalPagerApi::class)
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun QuizTopBanner(
     navController: NavController,
     modifier: Modifier = Modifier,
     pagerState: PagerState,
+    pageSize: Int,
     course: Course,
+    currentHealth: Int
 ) {
     Row(
         modifier = modifier,
@@ -56,19 +60,18 @@ fun QuizTopBanner(
             modifier = Modifier.fillMaxWidth(0.6f)
         ) {
             Row(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth(),
                 horizontalArrangement = Arrangement.Center
             ) {
-                HorizontalPagerIndicator(
-                    pagerState = pagerState,
-                    activeColor = Primary600,
-                    inactiveColor = Slate200,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .background(Color.Green),
-
-                    )
+                LinearProgressIndicator(
+                    color = Primary600,
+                    backgroundColor = Slate200,
+                    progress = (pagerState.currentPage / pageSize).toFloat(),
+                    strokeCap = StrokeCap.Round
+                )
             }
+            Spacer(modifier = Modifier.height(SpaceSmall))
             Text(
                 text = course.subBab.toString(),
                 style = MaterialTheme.typography.body2.copy(
@@ -78,7 +81,8 @@ fun QuizTopBanner(
         }
         HealthSection(
             modifier = Modifier
-                .fillMaxWidth(0.6f)
+                .fillMaxWidth(0.6f),
+            currentHealth = currentHealth
         )
     }
 }

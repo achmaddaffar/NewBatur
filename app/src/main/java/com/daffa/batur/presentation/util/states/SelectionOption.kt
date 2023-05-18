@@ -4,7 +4,6 @@ import androidx.annotation.DrawableRes
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.graphics.painter.Painter
 
 class SelectionOption(
     val option: String,

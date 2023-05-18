@@ -9,30 +9,25 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.preferencesDataStoreFile
 import com.daffa.batur.data.repository.FirebaseRepositoryImpl
+import com.daffa.batur.data.repository.QuizRepositoryImpl
 import com.daffa.batur.data.repository.UserRepositoryImpl
-import com.daffa.batur.presentation.home.HomeViewModel
-import com.daffa.batur.presentation.login.LoginViewModel
-import com.daffa.batur.presentation.onboarding.screen.fourth.FourthOnBoardingViewModel
-import com.daffa.batur.presentation.onboarding.screen.third.ThirdOnBoardingViewModel
-import com.daffa.batur.presentation.register.RegisterViewModel
-import com.daffa.batur.presentation.splash.SplashViewModel
 import com.daffa.batur.util.Constants
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import io.grpc.android.BuildConfig
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
-import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import timber.log.Timber
 
 val appModule = module {
     single { FirebaseAuth.getInstance() }
     single { FirebaseFirestore.getInstance() }
-    single { Timber }
     single { provideUserPreferences(get()) }
     single { provideUserRepository(get()) }
     single { FirebaseRepositoryImpl(get(), get()) }
+    single { QuizRepositoryImpl() }
 }
 
 fun provideUserPreferences(
