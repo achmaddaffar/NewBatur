@@ -28,4 +28,6 @@
     <string name="ketik_ulang_password">Ketik Ulang Password</string>
     <string name="coin_icon">Coin Icon</string>
     <string name="tambah_coin">Tambah coin</string>
+    <string name="absen_harian">Absen Harian</string>
+    <string name="logout">Logout</string>
 </resources>

@@ -1,7 +1,6 @@
 package com.daffa.batur.presentation.quiz
 
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -9,6 +8,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -26,12 +26,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.navigation.NavController
 import androidx.wear.compose.material.Text
+import coil.compose.AsyncImage
 import com.daffa.batur.data.models.Course
 import com.daffa.batur.presentation.components.CustomButton
 import com.daffa.batur.presentation.quiz.components.QuizOptionButton
@@ -42,7 +42,9 @@ import com.daffa.batur.presentation.ui.theme.RedLight
 import com.daffa.batur.presentation.ui.theme.Slate200
 import com.daffa.batur.presentation.ui.theme.Slate25
 import com.daffa.batur.presentation.ui.theme.Slate600
+import com.daffa.batur.presentation.ui.theme.SpaceExtraLarge
 import com.daffa.batur.presentation.ui.theme.SpaceLarge
+import com.daffa.batur.presentation.ui.theme.SpaceMedium
 import com.daffa.batur.presentation.ui.theme.SpaceUltraLarge
 import com.daffa.batur.presentation.util.Screen
 import kotlinx.coroutines.launch
@@ -86,7 +88,6 @@ fun QuizScreen(
                 pageCount = quiz.size
             ) { page ->
                 val currentQuiz = quiz[pagerState.currentPage]
-                viewModel.setCurrentQuiz(currentQuiz)
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
@@ -103,22 +104,27 @@ fun QuizScreen(
                             style = MaterialTheme.typography.h1,
                             textAlign = TextAlign.Start
                         )
-                        if (quiz[pagerState.currentPage].image != null)
-                            currentQuiz.image?.let {
-                                Image(
-                                    painter = painterResource(id = it),
-                                    contentDescription = "Gambar soal",
-                                    alignment = Alignment.Center,
-                                    contentScale = ContentScale.Crop,
-                                    modifier = Modifier.width(screenWidth)
-                                )
+                        Spacer(modifier = Modifier.height(SpaceMedium))
+                        if (quiz[pagerState.currentPage].imageUrl != null)
+                            currentQuiz.imageUrl?.let {
+                                Card {
+                                    AsyncImage(
+                                        model = it,
+                                        contentDescription = "Gambar soal",
+                                        alignment = Alignment.Center,
+                                        contentScale = ContentScale.Crop,
+                                        modifier = Modifier
+                                            .width(screenWidth)
+                                            .aspectRatio(16f / 9f),
+                                    )
+                                }
                             }
                     }
                     FlowRow(
                         modifier = Modifier
                             .fillMaxWidth()
                             .align(Alignment.Center)
-                            .offset(y = SpaceUltraLarge + SpaceLarge),
+                            .offset(y = SpaceUltraLarge * 2 + SpaceExtraLarge),
                         horizontalArrangement = Arrangement.SpaceEvenly,
                         maxItemsInEachRow = 3
                     ) {
@@ -127,7 +133,9 @@ fun QuizScreen(
                                 buttonColor = Slate25,
                                 shadowColor = Slate200,
                                 selectionOption = option,
-                                onOptionClick = viewModel::selectionOptionSelected,
+                                onOptionClick = {
+                                    viewModel.selectionOptionSelected(page, option)
+                                },
                                 selected = option.selected
                             ) {
                                 Text(
@@ -139,18 +147,14 @@ fun QuizScreen(
                             }
                         }
                     }
-                    Timber.e("QUIZ CEK JAWABAN UI")
                     CustomButton(
                         modifier = Modifier
                             .fillMaxWidth()
                             .align(Alignment.BottomCenter),
                         onClick = {
-                            Timber.e("QUIZ CEK JAWABAN")
                             val result = viewModel.checkAnswer(page, viewModel.selectedQuizOption)
                             if (result) {
-                                Timber.e("QUIZ CEK JAWABAN BENAR")
                                 if (page < quiz.size - 1) {
-                                    Timber.e("QUIZ SCROLL NEXT PAGE")
                                     coroutineScope.launch {
                                         pagerState.animateScrollToPage(page + 1)
                                     }
@@ -159,7 +163,6 @@ fun QuizScreen(
                                 }
                             } else {
                                 viewModel.decreaseHealth()
-                                Timber.e("QUIZ CEK JAWABAN SALAH")
                             }
                         }
                     ) {

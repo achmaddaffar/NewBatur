@@ -18,32 +18,22 @@ class QuizViewModel(
 
     val quiz = quizRepository.getQuiz()
 
-    private val _currentQuiz = mutableStateOf(
-        Quiz(
-            question = String.Empty,
-            options = listOf(),
-            answer = listOf()
-        )
-    )
-    private val currentQuiz: State<Quiz> = _currentQuiz
-
-    private val _quizOptions = currentQuiz.value.options
     var selectedQuizOption = String.Empty
 
     fun decreaseHealth() {
         _health.value--
     }
 
-    fun setCurrentQuiz(quiz: Quiz) {
-        _currentQuiz.value = quiz
-    }
-
-    fun selectionOptionSelected(selectionOption: SelectionOption) {
-        _quizOptions.forEach { it.selected = false }
-        val currentOption = _quizOptions.find { it.option == selectionOption.option }
+    fun selectionOptionSelected(index: Int, selectionOption: SelectionOption) {
+        val currentQuiz = quiz[index]
+        val currentQuizOptions = currentQuiz.options
+        currentQuizOptions.forEach { it.selected = false }
+        val currentOption = currentQuizOptions.find { it.option == selectionOption.option }
         currentOption?.selected = true
         selectedQuizOption = selectionOption.option
-        Timber.d("CEK JAWABAN $selectedQuizOption")
+        Timber.e("CEK JAWABAN $selectedQuizOption")
+        Timber.e("CEK KEBENARAN ${currentOption?.selected}")
+        Timber.e("CEK ISI LIST QUIZ ${currentQuizOptions.size}")
     }
 
     fun checkAnswer(index: Int, answer: String) = quizRepository.checkAnswer(index, answer)
