@@ -55,10 +55,6 @@ class FourthOnBoardingViewModel(
 
     fun checkOptionsSelected(): Boolean = countryOptionsSelected && optionsSelected
 
-    fun saveOnBoardingState(isCompleted: Boolean) = viewModelScope.launch {
-        repository.saveOnBoardingState(isCompleted)
-    }
-
     fun saveSuku() = viewModelScope.launch {
         repository.saveSuku(selectedSuku)
     }

@@ -144,7 +144,6 @@ fun FourthOnBoardingScreen(
                     ),
                 onClick = {
                     viewModel.saveSuku()
-                    viewModel.saveOnBoardingState(true)
                     navController.navigate(Screen.HomeScreen.route)
                 },
             ) {
